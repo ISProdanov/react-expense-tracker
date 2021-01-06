@@ -1,13 +1,18 @@
 import React, {useState, useContext} from 'react';
 
+import  Input from '../../UI/Input/Input';
 import {GlobalContext} from '../../context/GlobalState';
 
 const Transaction = (props) => {
     const {addTransaction} = useContext(GlobalContext);
-    const [text, setText] = useState('');
+    const [text, setTransactionDescription] = useState('');
     const [amount, setAmount] = useState(0);
 
     // TODO:: Make component for every form Element, use separate file for init controls asap
+
+    const onDescriptionUpdate = (description) => {
+        setTransactionDescription(description)
+    };
 
     const addTransactionItem = (event) => {
         event.preventDefault();
@@ -24,12 +29,11 @@ const Transaction = (props) => {
             <h3>Add new transaction</h3>
             <form>
                 <div className="form-control">
-                    <label htmlFor="text">Text</label>
-                    <input
-                        type="text"
+                    <Input
                         value={text}
-                        placeholder="Enter text..."
-                        onChange={(event) => setText(event.target.value)}
+                        label='Description'
+                        placeholder='A short description...'
+                        onInputChange={onDescriptionUpdate}
                     />
                 </div>
                 <div className="form-control">
